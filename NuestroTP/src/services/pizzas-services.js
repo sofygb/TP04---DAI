@@ -8,8 +8,8 @@ class PizzasService {
         console.log('Estoy en: PizzaService.getAll()');
         try {
             let pool   = await sql.connect(config);
-            let result = await pool.request().query("SELECT * from Pizzas");
-            returnArray = result.recordsets[0];
+            let result = await pool.request().query("SELECT * from Personaje");
+            returnArray = result.recordsets[0]; //traer un array y apunta al 1er dato
         }
         catch (error) {
             console.log(error);
@@ -24,7 +24,7 @@ class PizzasService {
             let pool   = await sql.connect(config);
             let result = await pool.request()
                                 .input('pId', sql.Int, id)
-                                .query('SELECT * FROM Pizzas WHERE id = @pId');
+                                .query('SELECT * FROM Personaje WHERE id = @pId');
             returnEntity = result.recordsets[0][0];
         } catch (error) {
             console.log(error);
@@ -32,18 +32,19 @@ class PizzasService {
         return returnEntity;
     }
 
-    insert = async (pizza) => {
+    insert = async (personaje) => {
         let rowsAffected = 0;
-        console.log('Estoy en: PizzaService.insert(pizza)');
+        console.log('Estoy en: PizzaService.insert(personaje)');
 
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .input('pNombre'     , sql.NChar , pizza?.nombre ?? '')
-                .input('pLibreGluten', sql.Bit   , pizza?.libreGluten ?? false)
-                .input('pImporte'    , sql.Float , pizza?.importe ?? 0)
-                .input('pDescripcion', sql.NChar , pizza?.descripcion ?? '')
-                .query(`INSERT INTO Pizzas (Nombre, LibreGluten, Importe, Descripcion) VALUES (@pNombre, @pLibreGluten, @pImporte, @pDescripcion)`);
+                .input('pNombre'     , sql.NChar , personaje?.nombre ?? '')
+                .input('pImagen'     , sql.NChar   , personaje?.imagen ?? '')
+                .input('pEdad'       , sql.Int   , personaje?.edad ?? 0)
+                .input('pPeso'       , sql.Float , personaje?.peso ?? 0)
+                .input('pHistoria'   , sql.NChar , personaje?.historia ?? '')
+                .query(`INSERT INTO Personaje (Nombre, Imagen, Edad, Peso, Historia) VALUES (@pNombre, @pImagen, @pEdad, @pPeso, @pHistoria)`);
             rowsAffected = result.rowsAffected;
         } catch (error) {
             console.log(error);
@@ -51,19 +52,20 @@ class PizzasService {
         return rowsAffected;
     }
 
-    update = async (pizza) => {
+    update = async (personaje) => {
         let rowsAffected = 0;
-        console.log('Estoy en: PizzaService.update(pizza)');
+        console.log('Estoy en: PizzaService.update(personaje)');
 
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                .input('pNombre'     , sql.NChar , pizza?.nombre ?? '')
-                .input('pLibreGluten', sql.Bit   , pizza?.libreGluten ?? false)
-                .input('pImporte'    , sql.Float , pizza?.importe ?? 0)
-                .input('pDescripcion', sql.NChar , pizza?.descripcion ?? '')
-                .input('pId'         , sql.Int   , pizza?.id ?? 0)
-                .query(`UPDATE Pizzas SET Nombre = @pNombre, LibreGluten=@pLibreGluten, Importe=@pImporte, Descripcion=@pDescripcion WHERE Id=@pId`);
+                .input('pNombre'     , sql.NChar , personaje?.nombre ?? '')
+                .input('pImagen'     , sql.NChar   , personaje?.imagen ?? '')
+                .input('pEdad'       , sql.Int   , personaje?.edad ?? 0)
+                .input('pPeso'       , sql.Float , personaje?.peso ?? 0)
+                .input('pHistoria'   , sql.NChar , personaje?.historia ?? '')
+                .input('pId'         , sql.Int   , personaje?.id ?? 0)
+                .query(`UPDATE Personaje SET Nombre = @pNombre, Imagen=@pImagen, Edad=@pEdad, Peso=@pPeso, Historia=@pHistoria WHERE Id=@pId`);
             rowsAffected = result.rowsAffected;
         } catch (error) {
             console.log(error);
@@ -78,7 +80,7 @@ class PizzasService {
             let pool   = await sql.connect(config);
             let result = await pool.request()
                                 .input('pId', sql.Int, id)
-                                .query('DELETE FROM Pizzas WHERE id = @pId');
+                                .query('DELETE FROM Personaje WHERE id = @pId');
             rowsAffected = result.rowsAffected;
         } catch (error) {
             console.log(error);
