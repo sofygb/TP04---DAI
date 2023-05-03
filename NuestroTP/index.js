@@ -12,7 +12,7 @@ app.get('/', function (req, res) {
 })
 
 app.get('/characters', function (req, res) {
-    res.send('Hello World')
+    res.send(getById(id)) //no estamos seguros si es así
   })
   
 
