@@ -1,10 +1,10 @@
 class Personaje {
-    id;
-    imagen;
-    nombre;
-    edad;
-    peso;
-    historia;
+    idPersonaje;
+    Imagen;
+    Nombre;
+    Edad;
+    Peso;
+    Historia;
 }
 
 export default Personaje;
