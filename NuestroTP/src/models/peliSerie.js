@@ -1,9 +1,10 @@
 class PeliSerie {
-    idPeliSerie;
-    Titulo;
-    Imagen;
-    FechaCreacion;
-    Calificacion;
+    id;
+    imagen;
+    titulo;
+    fechaDeCreacion;
+    calificacion;
+    personajesAsociados;
 }
 
 export default PeliSerie;

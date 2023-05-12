@@ -1,5 +1,5 @@
 
-import DisneyService from './src/services/disney-services.js' //llamando a la clase para obtener los datos
+import PizzasService from './src/services/pizzas-services.js' //llamando a la clase para obtener los datos
 import Personaje from './src/models/personaje.js'
 import config from './dbconfig.js';
 import sql from 'mssql';
@@ -12,13 +12,10 @@ app.get('/', function (req, res) {
 })
 
 app.get('/characters', function (req, res) {
-    res.send(getAllPersonajes()) //no estamos seguros si es así
+    res.send(getById(id)) //no estamos seguros si es así
   })
   
 
 app.listen(3000, function() {
     console.log('Example app listening on port 3000!');
 })
-
-//http://localhost:3000/
-//http://localhost:3000/characters
